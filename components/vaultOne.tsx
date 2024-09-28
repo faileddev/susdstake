@@ -117,6 +117,21 @@ const VaultOne: React.FC = () => {
        
     });
 
+    const { 
+        data: lockPeriod, 
+        
+        refetch: reftchLockPeriod,
+    } = useReadContract (
+        
+        {
+            contract: STAKE_CONTRACT,
+            method: "lockPeriod",
+            queryOptions: {
+                enabled: !!account
+            }
+       
+    });
+
     const currentTime = Math.floor(Date.now() / 1000);  // Current time in seconds
 const unlockTime = stakeTimeStamp ? Number(stakeTimeStamp[3]) + 604800 : 0;  // Unlock time in seconds (7 days after stake)
 
@@ -135,6 +150,13 @@ const isUnlockDateReached = currentTime >= unlockTime;
         return Math.trunc(numericValue*factor) / factor
     }
     
+    function formatDuration(seconds: number) {
+        const days = Math.floor(seconds / (24 * 3600));
+        
+    
+        return `${days} day(s)`;
+    }
+
     return (
 <div>
             
@@ -149,7 +171,11 @@ const isUnlockDateReached = currentTime >= unlockTime;
                     
                 }}>
                     <h1>Starter Vault</h1>
-                    <p>7 DAYS LOCKUP</p>
+                    <p>{lockPeriod ? 
+    formatDuration(Number(lockPeriod))  // Convert and format the duration
+    : 
+    'Not Staked'
+}</p>
                     <div style={{
                             display: "flex",
                             flexDirection: "column",
@@ -298,36 +324,22 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
                         <div style={{
                             display: "flex",
                             flexDirection: "row",
-                            justifyContent: "space-between",
-                            marginTop: "20px"
+                            marginTop: "20px",
                         }}>
-                        <div >
-                            <p style={{marginTop: "10px"}}>Pending Rewards:</p>
-                            
-                            {loadingPendingRewards ? (
-          <h1>...<span style={{
-            fontSize: "12px"
-        }}>SOS</span></h1>
-         ) : (
-          <h1>{truncate(toEther(pendingRewards!),2)}<span style={{
-            fontSize: "12px"
-        }}>SOS</span></h1>
-         )} 
-
-                        </div>
+                        
                         <div style={{
                             display: "flex",
                             flexDirection: "column",
-                            textAlign: "right"
+                            textAlign: "left"
                         }} >
                             <p style={{marginTop: "10px"}}>Unclaimed Rewards:</p>
                             
                             <h1>
                             {unclaimedReward ? 
-                                truncate(toEther(unclaimedReward[2] * BigInt(1)).toString(), 2).toLocaleString() 
+                                truncate(toEther((unclaimedReward[2] + (pendingRewards!) )  * BigInt(1)).toString(), 2).toLocaleString() 
                                 : 
                                 '0.00'
-                            }
+                            } 
                             <span style={{ fontSize: "8px" }}>SOS</span>
                             </h1>
                         </div>
@@ -443,16 +455,16 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
             <span style={{ fontSize: "8px" }}>sUSD</span>
         </h1>
 
-                            <p style={{marginTop: "10px"}}>Unclaimed Rewards:</p>
-
-            <h1>
-            {unclaimedReward ? 
-                truncate(toEther(unclaimedReward[2] * BigInt(1)).toString(), 2).toLocaleString() 
-                : 
-                '0.00'
-            }
-            <span style={{ fontSize: "8px" }}>SOS</span>
-        </h1>
+        <p style={{marginTop: "10px"}}>Unclaimed Rewards:</p>
+                            
+                            <h1>
+                            {unclaimedReward ? 
+                                truncate(toEther((unclaimedReward[2] + (pendingRewards!) )  * BigInt(1)).toString(), 2).toLocaleString() 
+                                : 
+                                '0.00'
+                            } 
+                            <span style={{ fontSize: "8px" }}>SOS</span>
+                            </h1>
                             
                             {mintingState === "init" ? (
                                 <>
@@ -634,16 +646,16 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
                                 fontSize: "18px"
                             }}
                              />
-                             <p style={{ marginTop: "10px"}}>Unclaimed Rewards: </p>
-                             
-                             <h1>
-            {unclaimedReward ? 
-                truncate(toEther(unclaimedReward[2] * BigInt(1)).toString(), 2).toLocaleString() 
-                : 
-                '0.00'
-            }
-            <span style={{ fontSize: "8px" }}>SOS</span>
-        </h1>
+                             <p style={{marginTop: "10px"}}>Unclaimed Rewards:</p>
+                            
+                            <h1>
+                            {unclaimedReward ? 
+                                truncate(toEther((unclaimedReward[2] + (pendingRewards!) )  * BigInt(1)).toString(), 2).toLocaleString() 
+                                : 
+                                '0.00'
+                            } 
+                            <span style={{ fontSize: "8px" }}>SOS</span>
+                            </h1>
          
                              
                             <TransactionButton style={{marginTop: "10px", width: "100%"}}
@@ -664,6 +676,30 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
                             >
                                 Withdraw sUSD
                             </TransactionButton>
+
+                            <TransactionButton style={{
+                                        
+                                        marginTop: "10px",
+                                        width: "100%",
+                                    }}
+                                        transaction={() => (
+                                            prepareContractCall({
+                                                contract: STAKE_CONTRACT,
+                                                method: "claim",
+                                            })
+                                        )}
+                                        onTransactionConfirmed={() => {
+                                            refetchPendingReward();
+                                            refetchUnclaimedReward();
+                                            reftchLastClaim();
+                                        }}
+                                    >
+                                        Claim Reward
+                                    </TransactionButton>
+
+
+
+                            
                             <TransactionButton style={{marginTop: "10px", width: "100%",
                                         backgroundColor: "red",
                                         color: "white",}}
