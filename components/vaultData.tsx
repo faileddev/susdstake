@@ -114,7 +114,7 @@ const VaultData: React.FC = () => {
                 
             ) : (
                 
-                <h3>{truncate(toEther(vaultTotalSupply!),2)}<span style={{fontSize: "8px"}}>sUSD</span></h3>
+                <h3>{truncate(toEther(vaultTotalSupply!),2).toLocaleString() }<span style={{fontSize: "8px"}}>sUSD</span></h3>
                 
             )}
 
@@ -140,7 +140,7 @@ const VaultData: React.FC = () => {
                 
             ) : (
                 
-                <h3>{truncate(toEther(totalDeposit!),2)}<span style={{fontSize: "8px"}}>sUSD</span></h3>
+                <h3>{truncate(toEther(totalDeposit!),2).toLocaleString() }<span style={{fontSize: "8px"}}>sUSD</span></h3>
                 
             )}
                     

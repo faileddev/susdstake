@@ -7,7 +7,7 @@ import { TransactionButton, useActiveAccount, useReadContract } from "thirdweb/r
 import { VAULT_CONTRACT, STAKE_CONTRACT } from "../utils/constants";
 import { prepareContractCall, toEther, toWei } from "thirdweb";
 import { addEvent } from "thirdweb/extensions/farcaster/keyRegistry";
-import VaultData from "./vaultData";
+
 
 const VaultOne: React.FC = () => {
 
@@ -175,7 +175,7 @@ const isUnlockDateReached = currentTime >= unlockTime;
     formatDuration(Number(lockPeriod))  // Convert and format the duration
     : 
     'Not Staked'
-}</p>
+} || <span style={{fontSize: "12px"}}> 0.0144 SOS is mined per day for every sUSD staked</span></p>
                     <div style={{
                             display: "flex",
                             flexDirection: "column",
@@ -200,7 +200,7 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
         : 
         'Not Staked'
     }
-</p>
+ </p>
 <h3 style={{marginTop: "10px"}}>UNLOCK DATE:</h3>
 
 <p>
@@ -266,7 +266,7 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
             fontSize: "12px"
         }}>sUSD</span></h1>
          ) : (
-          <h1>{truncate(toEther(susdBalance!),2)}<span style={{
+          <h1>{truncate(toEther(susdBalance!),2).toLocaleString() }<span style={{
             fontSize: "12px"
         }}>sUSD</span></h1>
          )} 
@@ -436,7 +436,7 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
                                 Available Balance:
                             </p>
                             <h1>
-                                {truncate(toEther(susdBalance!),2)}<span style={{
+                                {truncate(toEther(susdBalance!),2).toLocaleString() }<span style={{
                                     fontSize: "10px"
                                 }}>sUSD</span>
                             </h1>

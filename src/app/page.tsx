@@ -125,7 +125,7 @@ export default function Home() {
                               <Link  style={{marginTop: "10px" }} href={"https://susd.stacksofsats.com/"}>
                                   sUSD
                               </Link>
-                              <Link style={{marginTop: "10px", }} href={"https://newvaults.stacksofsats.com/"}>
+                              <Link style={{marginTop: "10px", }} href={"https://sosvault.stacksofsats.com/"}>
                                   sVaults V2
                               </Link>
                               <Link style={{marginTop: "10px", }} href={"https://svaults.stacksofsats.com/"}>
