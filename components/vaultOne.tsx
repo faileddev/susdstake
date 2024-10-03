@@ -170,78 +170,30 @@ const isUnlockDateReached = currentTime >= unlockTime;
                     
                     
                 }}>
-                    <h1>Starter Vault</h1>
-                    <p>{lockPeriod ? 
-    formatDuration(Number(lockPeriod))  // Convert and format the duration
-    : 
-    'Not Staked'
-} || <span style={{fontSize: "12px"}}> 0.0144 SOS is mined per day for every sUSD staked</span></p>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "space-between",
-                            marginTop: "20px"
-
-                        }}>
-                        <div >
-                            <h3 style={{marginTop: "10px"}}>LOCK DATE</h3>
-                            
-<p>
-    {stakeTimeStamp ? 
-new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: true
-})
-        : 
-        'Not Staked'
-    }
- </p>
-<h3 style={{marginTop: "10px"}}>UNLOCK DATE:</h3>
-
-<p>
-    {stakeTimeStamp ? 
-        new Date((Number(stakeTimeStamp[3]) + 604800) * 1000).toLocaleString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: true
-})  // Add 7 days in seconds and format
-        : 
-        'Not Staked'
-    }
-</p>
-<h3 style={{marginTop: "10px"}}>LAST CLAIM</h3>
-                            
-                            <p>
-                                {lastClaim ? 
-                            new Date(Number(lastClaim[1]) * 1000).toLocaleString('en-US', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit',
-                                second: '2-digit',
-                                hour12: true
-                            })
-                                    : 
-                                    'Not Staked'
-                                }
-                            </p>
-
-         
-
+                    <div style={{display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between"
+                    }}>
+                        <div>
+                            <h1>Entry Vault</h1>
+                            <p style={{marginTop: "2px"}}>1 sUSD = 0.01<span style={{fontSize: "10px"}}>SOS</span> Daily </p>
                         </div>
-                       
-                        
+
+                        <div style={{textAlign: "right"}}>
+                            
+                            
+                            <h1>{lockPeriod ?
+                                formatDuration(Number(lockPeriod))  // Convert and format the duration
+                                :
+                                'Not Staked'
+                            } </h1>
+                            <p> Lock Period</p>
                         </div>
+                    </div>
+                    
+                    
+                    
+                    
                     
                     <div style={{
                         display: "flex",
@@ -273,7 +225,7 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
          <p style={{
                                 marginTop: "20px"
                             }}>
-                                Staked Balance:
+                                Deposited Balance:
                             </p>
                             <h1>
             {stakedBalance ? 
@@ -393,18 +345,7 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
                             borderRadius: "10px",
                             maxWidth: "500px",
                         }}>
-                            <button style={{
-                                position: "absolute",
-                                top: 5,
-                                right: 5,
-                                padding: "5px",
-                                margin: "10px",
-                                fontSize: "0.5rem",
-                            }}
-                            onClick={() => setIsMinting(false)}
-                            >
-                                X
-                            </button>
+                            
                             <h1>
                                 Deposit sUSD
                             </h1>
@@ -413,23 +354,9 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
                             }}>
                             Stake your sUSD to earn rewards. sUSD deposited into this vault is locked for 7 days. Once a deposit is made you have to wait 7 days before you can initiate a withdrawal.
                             </p>
-                            <h3 style={{marginTop: "10px"}}>LAST STAKE</h3>
                             
-<p>
-    {stakeTimeStamp ? 
-new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: true
-})
-        : 
-        'Not Staked'
-    }
-</p>
+                            
+
                             <p style={{
                                 marginTop: "20px"
                             }}>
@@ -444,7 +371,7 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
                             <p style={{
                                 marginTop: "20px"
                             }}>
-                                Staked Balance:
+                                Deposited Balance:
                             </p>
                             <h1>
             {stakedBalance ? 
@@ -455,16 +382,7 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
             <span style={{ fontSize: "8px" }}>sUSD</span>
         </h1>
 
-        <p style={{marginTop: "10px"}}>Unclaimed Rewards:</p>
-                            
-                            <h1>
-                            {unclaimedReward ? 
-                                truncate(toEther((unclaimedReward[2] + (pendingRewards!) )  * BigInt(1)).toString(), 2).toLocaleString() 
-                                : 
-                                '0.00'
-                            } 
-                            <span style={{ fontSize: "8px" }}>SOS</span>
-                            </h1>
+        
                             
                             {mintingState === "init" ? (
                                 <>
@@ -488,6 +406,108 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
                                 
                                 
                                 />
+                                <div style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            width: "100%",
+                            marginTop: "10px",
+                            justifyContent: "space-between",
+                        }}>
+
+                            
+                        
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "left"
+                            
+                        }} >
+                            <p style={{marginTop: "10px"}}>Minimum Deposit:</p>
+                            
+                        </div>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "right"
+                            
+                        }} >
+                            <p style={{marginTop: "10px"}}>1,000<span style={{ fontSize: "8px" }}>sUSD</span></p>
+                            
+                        </div>
+                        
+                        </div>
+
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            width: "100%",
+                            justifyContent: "space-between",
+                        }}>
+
+                            
+                        
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "left"
+                            
+                        }} >
+                            <p style={{marginTop: "10px"}}>Maximum Deposit:</p>
+                            
+                        </div>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "right"
+                            
+                        }} >
+                            <p style={{marginTop: "10px"}}>1,000,000<span style={{ fontSize: "8px" }}>sUSD</span></p>
+                            
+                        </div>
+                        
+                        </div>
+
+
+
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            width: "100%",
+                            justifyContent: "space-between",
+                        }}>
+
+                            
+                        
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "left"
+                            
+                        }} >
+                            <p style={{marginTop: "10px"}}>Unclaimed Rewards:</p>
+                            
+                        </div>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "right"
+                            
+                        }} >
+                            <p style={{marginTop: "10px"}}>{unclaimedReward ? 
+                                truncate(toEther((unclaimedReward[2] + (pendingRewards!) )  * BigInt(1)).toString(), 2).toLocaleString() 
+                                : 
+                                '0.00'
+                            } 
+                            <span style={{ fontSize: "8px" }}>SOS</span></p>
+                            
+                        </div>
+                        
+                        </div>
+
+
+
+
+
                                 <TransactionButton
                                 transaction={() => (
                                     approve ({
@@ -588,18 +608,7 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
                             borderRadius: "10px",
                             maxWidth: "500px",
                         }}>
-                            <button style={{
-                                position: "absolute",
-                                top: 5,
-                                right: 5,
-                                padding: "5px",
-                                margin: "10px",
-                                fontSize: "0.5rem",
-                            }}
-                            onClick={() => setIsRedeeming(false)}
-                            >
-                                X
-                            </button>
+                            
                             <h1>
                                 Withdraw sUSD
                             </h1>
@@ -607,28 +616,12 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
                             sUSD deposited into this vault is locked for 7 days. Once a deposit is made you have to wait 7 days before you can initiate a withdrawal.
                             </p>
                             
-                            <h3 style={{marginTop: "10px"}}>UNLOCK DATE:</h3>
-
-<p>
-    {stakeTimeStamp ? 
-        new Date((Number(stakeTimeStamp[3]) + 604800) * 1000).toLocaleString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: true
-})  // Add 7 days in seconds and format
-        : 
-        'Not Staked'
-    }
-</p>
+                            
 
                             <p style={{
                                 marginTop: "20px"
                             }}>
-                                Staked Balance:
+                                Deposited Balance:
                             </p>
                             <h1>
             {stakedBalance ? 
@@ -639,16 +632,9 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
             <span style={{ fontSize: "8px" }}>sUSD</span>
         </h1>
 
-                            <p style={{
-                                marginTop: "20px"
-                            }}>
-                                Emergency Withdrawal Fee:
-                            </p>
-                            <h1>
-                                50%
-                            </h1>
+                           
                             
-                            <p style={{ marginTop: "20px"}}>Withdraw: </p>
+                            <p style={{ marginTop: "20px"}}>Enter Amount To Withdraw: </p>
                             <input
                              type="number"
                              placeholder="100"
@@ -664,38 +650,172 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
                                 fontSize: "18px"
                             }}
                              />
-                             <p style={{marginTop: "10px"}}>Unclaimed Rewards:</p>
                             
-                            <h1>
-                            {unclaimedReward ? 
+                            
+                            <div style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            width: "100%",
+                            marginTop: "10px",
+                            justifyContent: "space-between",
+                        }}>
+
+                            
+                        
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "left"
+                            
+                        }} >
+                            <p style={{marginTop: "10px"}}>Lock Date:</p>
+                            
+                        </div>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "right"
+                            
+                        }} >
+                            <p style={{marginTop: "10px"}}>
+    {stakeTimeStamp ? 
+new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+})
+        : 
+        'Not Staked'
+    }
+ </p>
+                            
+                        </div>
+                        
+                        </div>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            width: "100%",
+                            justifyContent: "space-between",
+                        }}>
+
+                            
+                        
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "left"
+                            
+                        }} >
+                            <p style={{marginTop: "5px"}}>Unlock Date:</p>
+                            
+                        </div>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "right"
+                            
+                        }} >
+                            <p style={{marginTop: "5px"}}>
+                            
+    {stakeTimeStamp ? 
+        new Date((Number(stakeTimeStamp[3]) + 604800) * 1000).toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+})  // Add 7 days in seconds and format
+        : 
+        'Not Staked'
+    }
+
+ </p>
+                            
+                        </div>
+                        
+                        </div>
+
+
+                        
+                        
+
+                        
+
+
+                            
+                            <div style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            width: "100%",
+                            justifyContent: "space-between",
+                        }}>
+
+                            
+                        
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "left"
+                            
+                        }} >
+                            <p style={{marginTop: "5px"}}>Unclaimed Rewards:</p>
+                            
+                        </div>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "right"
+                            
+                        }} >
+                            <p style={{marginTop: "5px"}}>{unclaimedReward ? 
                                 truncate(toEther((unclaimedReward[2] + (pendingRewards!) )  * BigInt(1)).toString(), 2).toLocaleString() 
                                 : 
                                 '0.00'
                             } 
-                            <span style={{ fontSize: "8px" }}>SOS</span>
-                            </h1>
-         
-                             
-                            <TransactionButton style={{marginTop: "10px", width: "100%"}}
-                            transaction={() => (
-                                prepareContractCall({
-                                    contract: STAKE_CONTRACT,
-                                    method: "unstake",
-                                    params: [toWei(redeemAmount.toString())] 
-                                })
-                            )}
-                            onTransactionConfirmed={() => {
-                                setRedeemAmount(0);
-                                refetchSusdBalance;
-                                refetchStakedBalance;
-                                setIsRedeeming(false);
-                            }}
-                            disabled={!isUnlockDateReached}
-                            >
-                                Withdraw sUSD
-                            </TransactionButton>
+                            <span style={{ fontSize: "8px" }}>SOS</span></p>
+                            
+                        </div>
 
-                            <TransactionButton style={{
+                        
+                        
+                        
+                        </div>
+
+
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            width: "100%",
+                            justifyContent: "space-between",
+                        }}>
+
+                            
+                        
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "left"
+                            
+                        }} >
+                            <p style={{marginTop: "5px"}}>Emergency Withdrawal Fee:</p>
+                            
+                        </div>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "right"
+                            
+                        }} >
+                            <p style={{marginTop: "5px"}}>
+                            
+    50%
+
+ </p>
+                            
+                        </div>
+                        
+                        </div>
+
+                        <TransactionButton style={{
                                         
                                         marginTop: "10px",
                                         width: "100%",
@@ -714,11 +834,32 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
                                     >
                                         Claim Reward
                                     </TransactionButton>
+                             
+                            <TransactionButton style={{marginTop: "5px", width: "100%"}}
+                            transaction={() => (
+                                prepareContractCall({
+                                    contract: STAKE_CONTRACT,
+                                    method: "unstake",
+                                    params: [toWei(redeemAmount.toString())] 
+                                })
+                            )}
+                            onTransactionConfirmed={() => {
+                                setRedeemAmount(0);
+                                refetchSusdBalance;
+                                refetchStakedBalance;
+                                setIsRedeeming(false);
+                            }}
+                            disabled={!isUnlockDateReached}
+                            >
+                                Withdraw sUSD
+                            </TransactionButton>
+
+                            
 
 
 
                             
-                            <TransactionButton style={{marginTop: "10px", width: "100%",
+                            <TransactionButton style={{marginTop: "5px", width: "100%",
                                         backgroundColor: "red",
                                         color: "white",}}
                             transaction={() => (
@@ -738,6 +879,25 @@ new Date(Number(stakeTimeStamp[3]) * 1000).toLocaleString('en-US', {
                             >
                                 Emergency Withdrawal
                             </TransactionButton>
+                            <button style={{
+                                marginTop: "5px",
+                                marginBottom: "5px",
+                                padding: "10px",
+                                backgroundColor: "#efefef",
+                                border: "none",
+                                borderRadius: "6px",
+                                color: "#333",
+                                fontSize: "1rem",
+                                cursor: "pointer",
+                                width: "100%",
+                                height: "42px"
+                                }}
+                                onClick={() => setIsRedeeming(false)}
+                    
+                                    >
+
+                                    Close
+                            </button>
                         </div>
                     </div>
                 )}

@@ -119,17 +119,17 @@ export default function Home() {
                                 Menu
                             </h1>
                             
-                              <Link style={{marginTop: "10px", }} href={"https://stake.stacksofsats.com/"}>
-                                  Stake
+                              <Link style={{marginTop: "10px", }} href={"https://susd.stacksofsats.com/"}>
+                                  Mint sUSD
                               </Link>
-                              <Link  style={{marginTop: "10px" }} href={"https://susd.stacksofsats.com/"}>
-                                  sUSD
+                              <Link  style={{marginTop: "10px" }} href={"https://stake.stacksofsats.com/"}>
+                                  Stake sUSD
                               </Link>
                               <Link style={{marginTop: "10px", }} href={"https://sosvault.stacksofsats.com/"}>
-                                  sVaults V2
+                                  Stake SOS
                               </Link>
-                              <Link style={{marginTop: "10px", }} href={"https://svaults.stacksofsats.com/"}>
-                                  sVaults V1
+                              <Link style={{marginTop: "10px", }} href={"https://liquidity.stacksofsats.com/"}>
+                                  LP Staking
                               </Link>
 
                             
@@ -164,7 +164,7 @@ export default function Home() {
       
             }}>
               <h1>
-            sUSD Staking
+            Stake sUSD
           </h1>
                     <p style={{
                       marginTop: "10px"
