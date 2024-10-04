@@ -213,6 +213,28 @@ export default function Home() {
             
         </div>
             </div>
+            <div style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              marginTop: "20px"
+            }}>
+
+<Link style={{marginTop: "10px", }} href={"https://x.com/stacksofsat"}>
+                                  Twitter
+                              </Link>
+
+                              <Link style={{marginTop: "10px", }} href={"https://basescan.org/token/0xf63fca327c555408819e26edac30f83e55a119f4?a=0x525c4a9e3757639aec2077744a152b20401e06d8"}>
+                                  BaseScan
+                              </Link>
+                              <Link style={{marginTop: "10px", }} href={"https://app.uniswap.org/swap?outputCurrency=0xf63fca327c555408819e26edac30f83e55a119f4&chain=base"}>
+                                  Uniswap
+                              </Link>
+                              <Link style={{marginTop: "10px", }} href={"https://www.dextools.io/app/en/base/pair-explorer/0x693c5205627c5c96f45b49139aea6ff60480ad4d?t=1728048886979"}>
+                                  Dextools
+                              </Link>
+              
+            </div>
           </div>
         </div>
       
